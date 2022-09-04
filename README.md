@@ -1,9 +1,9 @@
 # Bakajohn 
 ## Links:
 - [Official Website](https://timkuo25.github.io/bakajohn/)
-- [Instagram]()
-- [Twitter]()
-- [Discord]()
+- [Instagram](https://www.instagram.com/bakajohn8917/)
+- [Twitter](https://twitter.com/johnbaka19)
+- [Discord](https://discord.gg/Ck69thuxtx)
 
 ## Intro
 ### About John
