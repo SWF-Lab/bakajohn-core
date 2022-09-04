@@ -29,8 +29,7 @@ contract Bakajohn is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Ownab
         uint32 txTime;
     }
     mapping (uint256 => token) BKJ;
-
-    // 空投地址
+    
     address[] giveAwayList; 
 
     constructor(string memory stage_1, string memory stage_2, string memory stage_3) ERC721("Bakajohn", "BKJ") {
@@ -56,10 +55,10 @@ contract Bakajohn is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Ownab
             tokenIdStr = (_tokenId < 10) ? 
             string(abi.encodePacked("00", Strings.toString(_tokenId))) 
             : 
-            string(abi.encodePacked("0",Strings.toString(_tokenId))) ;
+            string(abi.encodePacked("0",Strings.toString(_tokenId)));
         }
         uint32 currentStage = BKJ[_tokenId].stage;
-        string memory URI = string(abi.encodePacked(PREFIX_URI, _stage[currentStage], "/", tokenIdStr, _stageJson[currentStage])); 
+        string memory URI = string(abi.encodePacked(PREFIX_URI, _stage[currentStage], "/BAKAJOHN#", tokenIdStr, _stageJson[currentStage])); 
         return URI;
     }
 
@@ -70,7 +69,6 @@ contract Bakajohn is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Ownab
         _setTokenURI(_tokenId, newUri);
     }
 
-    event tokenURIListener(string);
     function publicSafeMint(address to, uint amount) public {
         require (_tokenIdCounter.current() + amount < MAX_SUPPLY, "Cannot mint given amount.");
         require (amount > 0, "Must give a mint amount.");
