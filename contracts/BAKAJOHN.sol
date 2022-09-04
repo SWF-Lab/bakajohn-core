@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+// author: @foodchain1028 aka Chung Fu-Chuan aka Jeff
 pragma solidity ^0.8.16;
 
 import "./ERC721.sol";
