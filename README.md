@@ -24,3 +24,15 @@ Every Bakajohn is a free mint dynamic NFT collectible. After each transaction, o
 As every NFT does, every Bakajohn Token has its own metadata which stored in IPFS (InterPlanetary File System). After safeMinting, the token will be generated and point to its first stage URI using `setTokenURI()`.
 
 Moreover, there is a struct `token` recording its own stage and trasaction time. Whenever the `_transfer()` function is called, the code are able to check the `token.stage` and trigger `evolveStage()`, which contains a function `_engenderURI()` inside. Combine all the things above, John would be able to become a TRUE BAKAJOHN really soon.
+
+## Road Map
+### JULY, 2022
+- Start to disseminate Taiwanese accessaries, slangs and memes on out social medias (Twitter and Instagram).
+- NFT sneak-peek every week on social medias and discord.
+
+### AUGUST, 2022
+- Publicize some of creation of NFTs.
+- Set up our website.
+
+### SEPTEMBER, 2022
+- Start to **FREE MINT**!!!
