@@ -13,8 +13,8 @@ contract Bakajohn is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Ownab
 
     uint256 constant MAX_SUPPLY = 500;
     string constant PREFIX_URI = "https://ipfs.filebase.io/ipfs/";
+    string constant JSON = ".json";
     string[3] private _stage;
-    string[3] private _stageJson;
 
     uint256 private currentPublicTokenId;
     struct token {
@@ -24,38 +24,21 @@ contract Bakajohn is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Ownab
     }
     mapping (uint256 => token) BKJ;
 
-    // 空投地址
     address[] giveAwayList; 
 
-    constructor(string memory stage_1, string memory stage_2, string memory stage_3) ERC721("Bakajohn", "BKJ") {
+    constructor() ERC721("Bakajohn", "BKJ") {
         _stage = [
-            stage_1,
-            stage_2,
-            stage_3
+            "QmPM1fwSXo1qzyjP71bye5YfSFjhT87KMwYF65zKcc2LT2", 
+            "QmQ4p16X7Je2eK33ycHHqDs3BJyFJChFhpaDXA6EE523oh", 
+            "QmWQ1DKXwrsqii7qVkDdUP4UJTsct7yUrg7GtWufo7QK1i"    
         ];
 
-        _stageJson = [
-            "A.json",
-            "B.json",
-            "C.json"
-        ];
-
-        currentPublicTokenId = 100;
+        currentPublicTokenId = 498;
     }
 
     function _engenderURI(uint256 _tokenId) public view returns (string memory) {
-        string memory tokenIdStr;
-        if (_tokenId >= 100) {
-            tokenIdStr = Strings.toString(_tokenId);
-        }
-        else{
-            tokenIdStr = (_tokenId < 10) ? 
-            string(abi.encodePacked("00", Strings.toString(_tokenId))) 
-            : 
-            string(abi.encodePacked("0",Strings.toString(_tokenId))) ;
-        }
         uint32 currentStage = BKJ[_tokenId].stage;
-        string memory URI = string(abi.encodePacked(PREFIX_URI, _stage[currentStage], "/BAKAJOHN%23", tokenIdStr, _stageJson[currentStage])); 
+        string memory URI = string(abi.encodePacked(PREFIX_URI, _stage[currentStage], "/", Strings.toString(_tokenId), JSON)); 
         return URI;
     }
 
@@ -67,7 +50,7 @@ contract Bakajohn is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Ownab
     }
 
     function publicSafeMint(address to, uint amount) public {
-        require (currentPublicTokenId + amount < MAX_SUPPLY, "Cannot mint given amount.");
+        require (currentPublicTokenId + amount <= MAX_SUPPLY, "Cannot mint given amount.");
         require (amount > 0, "Must give a mint amount.");
         require(amount <= 5, "Amount should be smaller than 5");        
         for (uint256 i = 0; i < amount; i++){
@@ -109,7 +92,7 @@ contract Bakajohn is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Ownab
     uint currentGiveAwayMintAmount = 0;
 
     function giveAwayMint(uint amount) public onlyOwner{
-        require (currentGiveAwayMintAmount < 100, "Cannot mint given amount.");
+        require (currentGiveAwayMintAmount + amount <= 100, "Cannot mint given amount.");
         require (amount > 0, "Must give a mint amount.");
         for (uint i = currentGiveAwayMintAmount; i < currentGiveAwayMintAmount + amount; i++){
             address to = giveAwayList[i]; 
@@ -130,8 +113,6 @@ contract Bakajohn is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Ownab
     function unpause() public onlyOwner {
         _unpause();
     }
-
-
 
     function _beforeTokenTransfer(address from, address to, uint256 tokenId)
         internal
